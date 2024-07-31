@@ -48,19 +48,19 @@ void Hex2bin::binToIntelHex(std::istream& binBuf, std::ostream& intelBuf)
 	_stream = &binBuf;
 	std::stringstream ss;
 	char hexVal[2];
-	int byte_str = 16;							 // кол-во байт в одной строке с данными HEX формата
+	int byte_str = 16;							 // ГЄГ®Г«-ГўГ® ГЎГ Г©ГІ Гў Г®Г¤Г­Г®Г© Г±ГІГ°Г®ГЄГҐ Г± Г¤Г Г­Г­Г»Г¬ГЁ HEX ГґГ®Г°Г¬Г ГІГ 
 		
-	intelBuf << ":020000040000FA";				 // для Intel 32-bit
+	intelBuf << ":020000040000FA";				 // Г¤Г«Гї Intel 32-bit
 	
 	while (_stream->get(hexVal, 2)) {
-		_CHKSUM += hexVal[0];					 // подсчет кт суммы
-		int lVal = (hexVal[0] >> 4) & 0x0f;		 // левая  часть входного байта
-		int rVal = hexVal[0] & 0x0f;			 // правая часть входного байта
-		ss << std::hex << lVal << rVal;			 // перевод байта в печатные символы
+		_CHKSUM += hexVal[0];					 // ГЇГ®Г¤Г±Г·ГҐГІ ГЄГІ Г±ГіГ¬Г¬Г»
+		int lVal = (hexVal[0] >> 4) & 0x0f;		 // Г«ГҐГўГ Гї  Г·Г Г±ГІГј ГўГµГ®Г¤Г­Г®ГЈГ® ГЎГ Г©ГІГ 
+		int rVal = hexVal[0] & 0x0f;			 // ГЇГ°Г ГўГ Гї Г·Г Г±ГІГј ГўГµГ®Г¤Г­Г®ГЈГ® ГЎГ Г©ГІГ 
+		ss << std::hex << lVal << rVal;			 // ГЇГҐГ°ГҐГўГ®Г¤ ГЎГ Г©ГІГ  Гў ГЇГҐГ·Г ГІГ­Г»ГҐ Г±ГЁГ¬ГўГ®Г«Г»
 
 		byte_str--;						 
 
-		if (byte_str == 0) {					// форматировани строки в HEX формат
+		if (byte_str == 0) {					// ГґГ®Г°Г¬Г ГІГЁГ°Г®ГўГ Г­ГЁ Г±ГІГ°Г®ГЄГЁ Гў HEX ГґГ®Г°Г¬Г ГІ
 			intelBuf << "\r" << toHex(ss);
 			byte_str = 16;
 			_DATA = "";
@@ -68,7 +68,7 @@ void Hex2bin::binToIntelHex(std::istream& binBuf, std::ostream& intelBuf)
 		}
 	}
 
-	intelBuf << "\r:00000001FF";				// конец программы
+	intelBuf << "\r:00000001FF";				// ГЄГ®Г­ГҐГ¶ ГЇГ°Г®ГЈГ°Г Г¬Г¬Г»
 }
 void Hex2bin::decrCommand(std::istream& lineHex) 
 {
@@ -88,7 +88,7 @@ std::string Hex2bin::toBin(char* DATA)
 {
 	int lineDataSize = 32 - strlen(DATA);
 	std::stringstream ss;
-	std::string res;									// Финальная строка с данными в 16-ом формате
+	std::string res;									// Г”ГЁГ­Г Г«ГјГ­Г Гї Г±ГІГ°Г®ГЄГ  Г± Г¤Г Г­Г­Г»Г¬ГЁ Гў 16-Г®Г¬ ГґГ®Г°Г¬Г ГІГҐ
 	unsigned int offset = std::stoi(_intelHex.LOAD_OFFSET_byte, 0, 16);
 	int checkAddNullByte = offset - _intelHex.LAST_OFFSET - _intelHex.LAST_RECLEN;
 	if (checkAddNullByte > 0x00) {
@@ -99,7 +99,7 @@ std::string Hex2bin::toBin(char* DATA)
 
 	for (int i = 0; i < strlen(DATA) - 1; i += 2) {
 		std::stringstream tmp;							//
-		std::string hex;								// Перевод из символьного представления в 16-ый формат
+		std::string hex;								// ГЏГҐГ°ГҐГўГ®Г¤ ГЁГ§ Г±ГЁГ¬ГўГ®Г«ГјГ­Г®ГЈГ® ГЇГ°ГҐГ¤Г±ГІГ ГўГ«ГҐГ­ГЁГї Гў 16-Г»Г© ГґГ®Г°Г¬Г ГІ
 		tmp << DATA[i] << DATA[i + 1];					//
 		tmp >> hex;										//
 		res.push_back(std::stoi(hex, 0, 16));			//
@@ -111,27 +111,27 @@ std::string Hex2bin::toBin(char* DATA)
 }
 std::string Hex2bin::toHex(std::stringstream& ss)
 {
-	std::string resHexLine;															// готовая строка для записи в файл
-	std::string lineDataHexFile;													// неотформатированная строка с данными
+	std::string resHexLine;															// ГЈГ®ГІГ®ГўГ Гї Г±ГІГ°Г®ГЄГ  Г¤Г«Гї Г§Г ГЇГЁГ±ГЁ Гў ГґГ Г©Г«
+	std::string lineDataHexFile;													// Г­ГҐГ®ГІГґГ®Г°Г¬Г ГІГЁГ°Г®ГўГ Г­Г­Г Гї Г±ГІГ°Г®ГЄГ  Г± Г¤Г Г­Г­Г»Г¬ГЁ
 	std::stringstream ssLV, ssRV, ssCHKS;
-	std::string chksum;																// финальный результат кт суммы
+	std::string chksum;																// ГґГЁГ­Г Г«ГјГ­Г»Г© Г°ГҐГ§ГіГ«ГјГІГ ГІ ГЄГІ Г±ГіГ¬Г¬Г»
 
 	lineDataHexFile = ss.str();
 	for (int i = 0; i < lineDataHexFile.size(); ++i) {								// 
 		if (!std::isdigit(lineDataHexFile[i]))										//
-			_DATA += std::toupper(lineDataHexFile[i]);								// перевод всех букв в верхний регистр
+			_DATA += std::toupper(lineDataHexFile[i]);								// ГЇГҐГ°ГҐГўГ®Г¤ ГўГ±ГҐГµ ГЎГіГЄГў Гў ГўГҐГ°ГµГ­ГЁГ© Г°ГҐГЈГЁГ±ГІГ°
 		else																		//
 			_DATA += lineDataHexFile[i];											//
 	}
 
-	unsigned char lVal = std::stoi(_LOAD_OFFSET_LV, 0, 16);							//перевод строки в hex
-	unsigned char rVal = std::stoi(_LOAD_OFFSET_RV, 0, 16);							//перевод строки в hex
+	unsigned char lVal = std::stoi(_LOAD_OFFSET_LV, 0, 16);							//ГЇГҐГ°ГҐГўГ®Г¤ Г±ГІГ°Г®ГЄГЁ Гў hex
+	unsigned char rVal = std::stoi(_LOAD_OFFSET_RV, 0, 16);							//ГЇГҐГ°ГҐГўГ®Г¤ Г±ГІГ°Г®ГЄГЁ Гў hex
 
 	_CHKSUM += std::stoi(_RECLEN, 0, 16) + lVal + rVal + std::stoi(_RECTYP, 0, 16); // 
 	_CHKSUM = 0x100 - _CHKSUM;														//
 	ssCHKS << std::hex << (int)_CHKSUM;												//
-	ssCHKS >> chksum;																// подсчет кт суммы в 16-ом формате
-	for (char& ch : chksum) {														// и перевод в символьный вид
+	ssCHKS >> chksum;																// ГЇГ®Г¤Г±Г·ГҐГІ ГЄГІ Г±ГіГ¬Г¬Г» Гў 16-Г®Г¬ ГґГ®Г°Г¬Г ГІГҐ
+	for (char& ch : chksum) {														// ГЁ ГЇГҐГ°ГҐГўГ®Г¤ Гў Г±ГЁГ¬ГўГ®Г«ГјГ­Г»Г© ГўГЁГ¤
 		if (!std::isdigit(ch))														//
 			ch = std::toupper(ch);													//
 	}																				//
@@ -151,7 +151,7 @@ std::string Hex2bin::toHex(std::stringstream& ss)
 
 	rVal += 0x10;																	//
 	_counterOffset--;																//
-	if (_counterOffset == 0) {														// сброс счетчика LOAD_OFFSET и инкементация старшей части 0x10
+	if (_counterOffset == 0) {														// Г±ГЎГ°Г®Г± Г±Г·ГҐГІГ·ГЁГЄГ  LOAD_OFFSET ГЁ ГЁГ­ГЄГҐГ¬ГҐГ­ГІГ Г¶ГЁГї Г±ГІГ Г°ГёГҐГ© Г·Г Г±ГІГЁ 0x10
 		lVal += 0x01;																//
 		_LOAD_OFFSET_RV = "00";
 		_counterOffset = 16;														//
@@ -160,7 +160,7 @@ std::string Hex2bin::toHex(std::stringstream& ss)
 	}
 	else {
 		ssLV << std::hex << (int)lVal;												//
-		ssLV >> _LOAD_OFFSET_LV; 													// инкрементация младшей части LOAD_OFFSET
+		ssLV >> _LOAD_OFFSET_LV; 													// ГЁГ­ГЄГ°ГҐГ¬ГҐГ­ГІГ Г¶ГЁГї Г¬Г«Г Г¤ГёГҐГ© Г·Г Г±ГІГЁ LOAD_OFFSET
 		ssRV << std::hex << (int)rVal;												//
 		ssRV >> _LOAD_OFFSET_RV;													//
 	}
@@ -170,5 +170,3 @@ std::string Hex2bin::toHex(std::stringstream& ss)
 
 	return resHexLine;
 }
-
-// привести код в порядок

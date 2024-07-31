@@ -7,7 +7,6 @@ int main() {
     setlocale(LC_ALL, "Rus");
 
     std::string hexFile;
-    std::string hexFileB2H;
     std::string binFile;
     Hex2bin converter;
 
@@ -22,7 +21,7 @@ int main() {
     case(1):{
         std::cout << "¬ведите путь к *.hex* файлу (path/name.hex):";
         std::cin >> hexFile;
-        std::cout << "¬ведите путь дл€ сохранени€ .bin файла (path/name.bin):";
+        std::cout << "¬ведите путь дл€ сохранени€ *.bin* файла (path/name.bin):";
         std::cin >> binFile;
         std::ifstream inFile(hexFile, std::ios::binary);
         if (!inFile) {
@@ -41,7 +40,7 @@ int main() {
     case(2): {
         std::cout << "¬ведите путь к *.bin* файлу (path/name.bin):";
         std::cin >> binFile;
-        std::cout << "¬ведите путь дл€ сохранени€ .hex файла (path/name.hex):";
+        std::cout << "¬ведите путь дл€ сохранени€ *.hex* файла (path/name.hex):";
         std::cin >> hexFile;
         std::ifstream inFile(binFile, std::ios::binary);
         if (!inFile) {

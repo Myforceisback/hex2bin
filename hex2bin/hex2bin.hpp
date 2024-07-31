@@ -1,13 +1,15 @@
 #pragma once
 #include <sstream>
-struct IntelHex {				//зачем-то сделал и забыл 
+struct IntelHex {
 	char RECORD_MASK[2];
 	char RECLEN_byte[3];
 	char LOAD_OFFSET_byte[5];
 	char RECTYP_byte[3];
 	char* DATA_byte;
 	char CHKSUM_byte[3];
-
+	unsigned int LAST_OFFSET;
+	unsigned char LAST_RECLEN;
+	bool FIRSTOFFSET_FLAG;
 	~IntelHex() {
 		delete[] DATA_byte;
 	}

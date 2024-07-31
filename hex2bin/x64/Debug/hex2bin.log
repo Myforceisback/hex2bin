@@ -1,2 +1,3 @@
 ﻿  hex2bin.cpp
+D:\РАБОТА\тествое задание\hex2bin\hex2bin\hex2bin.cpp(89,19): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
   hex2bin.vcxproj -> D:\РАБОТА\тествое задание\hex2bin\x64\Debug\hex2bin.exe

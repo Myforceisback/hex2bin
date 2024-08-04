@@ -20,15 +20,11 @@ int main() {
     switch (sw)
     {
     case(1):{
-        std::cout << "Ââåäèòå ïóòü ê *.hex* ôàéëó (path/name.hex):";
-        std::cin >> hexFile;
-        std::cout << "Ââåäèòå ïóòü äëÿ ñîõðàíåíèÿ *.bin* ôàéëà (path/name.bin):";
-        std::cin >> binFile;
-        std::ifstream inFile(hexFile, std::ios::binary);
+        std::ifstream inFile("1.hex", std::ios::binary);
         if (!inFile) {
             std::cerr << "Hex ôàéë íå îòðûëñÿ!" << std::endl;
         }
-        std::ofstream outFile(binFile, std::ios::out | std::ios::binary);
+        std::ofstream outFile("2.bin", std::ios::out | std::ios::binary);
         if (!outFile) {
             std::cerr << "Bin ôàéë íå îòðûëñÿ!" << std::endl;
         }
@@ -39,15 +35,11 @@ int main() {
         break;
     }
     case(2): {
-        std::cout << "Ââåäèòå ïóòü ê *.bin* ôàéëó (path/name.bin):";
-        std::cin >> binFile;
-        std::cout << "Ââåäèòå ïóòü äëÿ ñîõðàíåíèÿ *.hex* ôàéëà (path/name.hex):";
-        std::cin >> hexFile;
-        std::ifstream inFile(binFile, std::ios::binary);
+        std::ifstream inFile("2.bin", std::ios::binary);
         if (!inFile) {
             std::cerr << "Bin ôàéë íå îòðûëñÿ!" << std::endl;
         }
-        std::ofstream outFile(hexFile, std::ios::out | std::ios::binary);
+        std::ofstream outFile("3.hex", std::ios::out | std::ios::binary);
         if (!outFile) {
             std::cerr << "Hex ôàéë íå îòðûëñÿ!" << std::endl;
         }
